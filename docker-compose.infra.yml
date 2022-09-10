@@ -31,6 +31,7 @@ services:
     #privileged: true   # 拥有主机的root权限
     volumes:
       - ./data/etc/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./data/mysql/:/data/mysql/
     restart: unless-stopped
     command:
       - --character-set-server=utf8mb4
