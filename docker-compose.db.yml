@@ -1,0 +1,64 @@
+version: '3.7'
+
+
+x-logging:
+  &default_logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+
+
+services:
+  redis:
+    container_name: restful_server_redis
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redisdata:/data
+    restart: unless-stopped
+    entrypoint: redis-server --appendonly yes --requirepass 123456
+    logging: *default_logging
+    networks:
+      - pppoe_system
+
+
+  mysql:
+    container_name: restful_server_mysql
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'trade'
+    ports:
+      - "3306:3306"
+    #user: mysql
+    #privileged: true   # 拥有主机的root权限
+    volumes:
+      - ./data/etc/mysql/my.cnf:/etc/mysql/my.cnf
+    restart: unless-stopped
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --default-time-zone=+08:00
+    logging: *default_logging
+    networks:
+      - pppoe_system
+
+
+  fluentd:
+    image: fluent/fluentd:v1.3.2
+    ports:
+      - "24224:24224"
+    volumes:
+      - ./fluentd.conf:/fluentd/etc/fluentd.conf
+      - ./data/fluentd_data:/var/log/fluentd
+    environment:
+      FLUENTD_CONF: "fluentd.conf"
+    networks:
+      - pppoe_system
+
+
+networks:
+  pppoe_system:
+    name: pppoe_system_network_name
