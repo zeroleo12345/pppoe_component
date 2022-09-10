@@ -1,2 +1,0 @@
-# pppoe-component
-pppoe component
