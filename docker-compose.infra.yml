@@ -50,7 +50,7 @@ services:
     ports:
       - "24224:24224"
     volumes:
-      - data/etc/fluentd/fluentd.conf:/fluentd/etc/fluentd.conf
+      - ./data/etc/fluentd/fluentd.conf:/fluentd/etc/fluentd.conf
       - ./data/fluentd_data:/var/log/fluentd
     environment:
       FLUENTD_CONF: "fluentd.conf"
