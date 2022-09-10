@@ -51,7 +51,7 @@ services:
       - "24224:24224"
     volumes:
       - ./data/etc/fluentd/fluentd.conf:/fluentd/etc/fluentd.conf
-      - ./data/fluentd_data:/var/log/fluentd
+      - ./data/fluentd/:/data/fluentd/
     environment:
       FLUENTD_CONF: "fluentd.conf"
     logging:
