@@ -1,13 +1,6 @@
 version: '3.7'
 
 
-x-logging:
-  &default_logging
-  driver: "json-file"
-  options:
-    max-size: "10m"
-
-
 services:
   redis:
     container_name: restful_server_redis
@@ -18,7 +11,10 @@ services:
       - ./data/redisdata:/data
     restart: unless-stopped
     entrypoint: redis-server --appendonly yes --requirepass 123456
-    logging: *default_logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
     networks:
       - pppoe_system
 
@@ -41,7 +37,10 @@ services:
       - --collation-server=utf8mb4_unicode_ci
       - --skip-character-set-client-handshake
       - --default-time-zone=+08:00
-    logging: *default_logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
     networks:
       - pppoe_system
 
@@ -55,6 +54,10 @@ services:
       - ./data/fluentd_data:/var/log/fluentd
     environment:
       FLUENTD_CONF: "fluentd.conf"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
     networks:
       - pppoe_system
 
