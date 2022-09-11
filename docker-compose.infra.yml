@@ -3,7 +3,7 @@ version: '3.7'
 
 services:
   redis:
-    container_name: restful_server_redis
+    container_name: redis
     image: redis:4.0.9-alpine
     ports:
       - "6379:6379"
@@ -20,7 +20,7 @@ services:
 
 
   mysql:
-    container_name: restful_server_mysql
+    container_name: mysql
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: 'root'
