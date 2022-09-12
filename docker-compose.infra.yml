@@ -8,7 +8,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - ./data/redisdata:/data
+      - "${REDIS_OUTPUT_PATH}:/data/"
     restart: unless-stopped
     entrypoint: redis-server --appendonly yes --requirepass 123456
     logging:
@@ -30,8 +30,8 @@ services:
     #user: mysql
     #privileged: true   # 拥有主机的root权限
     volumes:
-      - ./pppoe_component/etc/mysql/my.conf:/etc/mysql/my.cnf
-      - ./data/mysql/:/data/mysql/
+      - "${MYSQL_CONFIG_PATH}:/etc/mysql/my.cnf"
+      - "${MYSQL_OUTPUT_PATH}:/data/mysql/"
     restart: unless-stopped
     # entrypoint: docker-entrypoint.sh
     command:
@@ -53,8 +53,8 @@ services:
     ports:
       - "24224:24224"
     volumes:
-      - ./pppoe_component/etc/fluentd/fluentd.conf:/fluentd/etc/fluentd.conf
-      - ./data/fluentd/:/data/fluentd/
+      - "${FLUENTD_CONFIG_PATH}:/fluentd/etc/fluentd.conf"
+      - "${FLUENTD_OUTPUT_PATH}:/data/fluentd/"
     environment:
       FLUENTD_CONF: "fluentd.conf"
     logging:
