@@ -30,9 +30,10 @@ services:
     #user: mysql
     #privileged: true   # 拥有主机的root权限
     volumes:
-      - ./data/etc/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./pppoe_component/etc/mysql/my.conf:/etc/mysql/my.cnf
       - ./data/mysql/:/data/mysql/
     restart: unless-stopped
+    # entrypoint: docker-entrypoint.sh
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
@@ -52,7 +53,7 @@ services:
     ports:
       - "24224:24224"
     volumes:
-      - ./data/etc/fluentd/fluentd.conf:/fluentd/etc/fluentd.conf
+      - ./pppoe_component/etc/fluentd/fluentd.conf:/fluentd/etc/fluentd.conf
       - ./data/fluentd/:/data/fluentd/
     environment:
       FLUENTD_CONF: "fluentd.conf"
