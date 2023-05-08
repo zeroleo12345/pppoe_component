@@ -52,7 +52,7 @@ services:
     # image: fluent/fluentd:v1.3.2
     build:
        context: .
-       dockerfile: ./dockerfile/fluentd
+       dockerfile: ./pppoe_component/dockerfile/fluentd
     ports:
       - "24224:24224"
     volumes:
