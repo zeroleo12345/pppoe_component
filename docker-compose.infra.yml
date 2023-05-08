@@ -49,7 +49,10 @@ services:
 
   fluentd:
     container_name: fluentd
-    image: fluent/fluentd:v1.3.2
+    # image: fluent/fluentd:v1.3.2
+    build:
+       context: .
+       dockerfile: ./dockerfile/fluentd
     ports:
       - "24224:24224"
     volumes:
