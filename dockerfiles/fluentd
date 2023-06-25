@@ -1,7 +1,7 @@
 FROM fluent/fluentd:v1.3.2
 
 # 一. 安装 linux package. (使用: 阿里云 alpine 镜像)
-ADD requirements/repositories.tencent /etc/apk/repositories
+ADD requirements/alpine3_8.tencent.sources /etc/apk/repositories
 
 RUN apk add tzdata
 
