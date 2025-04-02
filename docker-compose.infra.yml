@@ -23,7 +23,7 @@ services:
   pg:
     platform: linux/amd64
     container_name: postgres
-    image: postgres:15.12-bookworm
+    image: postgres:15.12-alpine3.21  # 15.12-bookworm
     environment:
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: '123456'
