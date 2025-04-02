@@ -25,8 +25,8 @@ services:
     container_name: postgres
     image: postgres:15.12-bookworm
     environment:
-      POSTGRES_PASSWORD: 'root'
-      MYSQL_DATABASE: 'trade'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: '123456'
     restart: unless-stopped
     # entrypoint: docker-entrypoint.sh
     logging:
