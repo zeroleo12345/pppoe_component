@@ -20,6 +20,20 @@ services:
       - pppoe_system
 
 
+  postgres:
+    platform: linux/amd64
+    container_name: postgres
+    image: postgres:15.12-bookworm
+    restart: unless-stopped
+    # entrypoint: docker-entrypoint.sh
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+    networks:
+      - pppoe_system
+
+
   mysql:
     platform: linux/amd64
     container_name: mysql
