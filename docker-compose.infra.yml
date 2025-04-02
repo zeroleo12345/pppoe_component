@@ -20,7 +20,7 @@ services:
       - pppoe_system
 
 
-  postgres:
+  pg:
     platform: linux/amd64
     container_name: postgres
     image: postgres:15.12-bookworm
