@@ -10,7 +10,7 @@ services:
       - "6379:6379"
     volumes:
       - "${REDIS_OUTPUT_PATH}:/data/"
-    restart: unless-stopped
+    restart: "${RESTART_POLICY}"   # no; unless-stopped;
     entrypoint: redis-server --appendonly yes --requirepass 123456
     logging:
       driver: "json-file"
@@ -35,9 +35,10 @@ services:
     volumes:
       - "${POSTGRES_CONFIG_PATH}:/etc/postgresql/postgresql.conf"
       - "${POSTGRES_OUTPUT_PATH}:/var/lib/postgresql/data/pgdata"
-    restart: unless-stopped
-    # entrypoint: docker-entrypoint.sh  # docker inspect postgres | grep Entrypoint -A 1
+    restart: "${RESTART_POLICY}"   # unless-stopped
+    # entrypoint: docker-entrypoint.sh  # docker inspect postgres:15.12-alpine3.21 | grep Entrypoint -A 1
     command:
+      - -c
       - config_file=/etc/postgresql/postgresql.conf
     logging:
       driver: "json-file"
@@ -61,8 +62,8 @@ services:
     volumes:
       - "${MYSQL_CONFIG_PATH}:/etc/mysql/my.cnf"
       - "${MYSQL_OUTPUT_PATH}:/data/mysql/"
-    restart: unless-stopped
-    # entrypoint: docker-entrypoint.sh  # docker inspect mysql | grep Entrypoint -A 1
+    restart: "${RESTART_POLICY}"   # no; unless-stopped;
+    # entrypoint: docker-entrypoint.sh  # docker inspect mysql:5.7 | grep Entrypoint -A 1
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
@@ -88,6 +89,7 @@ services:
     volumes:
       - "${FLUENTD_CONFIG_PATH}:/fluentd/etc/fluentd.conf"
       - "${FLUENTD_OUTPUT_PATH}:/data/fluentd/"
+    restart: "${RESTART_POLICY}"   # no; unless-stopped;
     environment:
       FLUENTD_CONF: "fluentd.conf"
       FLUENT_UID: 0
