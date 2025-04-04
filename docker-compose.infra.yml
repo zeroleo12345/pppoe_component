@@ -34,7 +34,7 @@ services:
       - "5432:5432"
     volumes:
       - "${POSTGRES_CONFIG_PATH}:/etc/postgresql/postgresql.conf"
-      - "${POSTGRES_OUTPUT_PATH}:/var/lib/postgresql/data/pgdata"
+      - "${POSTGRES_OUTPUT_PATH}:/var/lib/postgresql/data"
     restart: "${RESTART_POLICY}"   # unless-stopped
     # entrypoint: docker-entrypoint.sh  # docker inspect postgres:15.12-alpine3.21 | grep Entrypoint -A 1
     command:
